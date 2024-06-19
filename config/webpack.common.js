@@ -8,14 +8,14 @@ const packageJson = require('../package.json');
 
 const processEnvPlugin = new webpack.DefinePlugin({
   APP_VERSION: JSON.stringify(packageJson.version),
-  ENVIRONMENT_VARIABLES: JSON.stringify(process.env),
+  'process.env': JSON.stringify(process.env),
 });
 
 const plugins = [
   new HtmlWebpackPlugin({
     template: './public/index.html',
-    favicon: './public/favicon.ico',
-    manifest: './public/manifest.json',
+    // favicon: './public/favicon.ico',
+    // manifest: './public/manifest.json',
   }),
   processEnvPlugin,
   new ExternalTemplateRemotesPlugin(),
@@ -28,7 +28,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(ts|js)x?$/,
@@ -59,7 +59,6 @@ module.exports = {
       },
     ],
   },
-
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
     alias: {
@@ -86,7 +85,12 @@ module.exports = {
 // function getConfig(env) {
 //   const config = {};
 //   // providing a list of env variables otherwise we would push all the node envs here
-//   const customPropsNames = ['API_URL', 'LICENSE_NUMBER', 'CONTACT_SUPPORT_LINK_HOST', 'DEVELOPMENT_API_TARGET'];
+//   const customPropsNames = [
+//     'API_URL',
+//     'LICENSE_NUMBER',
+//     'CONTACT_SUPPORT_LINK_HOST',
+//     'DEVELOPMENT_API_TARGET',
+//   ];
 //   for (const key of customPropsNames) {
 //     if (env.hasOwnProperty(key)) {
 //       config[key] = env[key].trim();
