@@ -5,15 +5,7 @@
     --font-red-hat-text: 'Red Hat Text', sans-serif;
     --font-monospace: 'Fira Code', 'Fira Mono', monospace; /* Example monospace fonts */
     box-sizing: border-box;
-    height: 100%;
-}
-
-#root > div:first-of-type {
-    height: 100%;
-}
-
-:root {
-    --header-height: 64px;
+    height: 100dvh;
 }
 
 a {
@@ -37,14 +29,33 @@ body {
     height: 100%;
 }
 
-code {
-    font-family: var(--font-monospace);
+.loaderContainer {
+    display: flex;
+    height: 100dvh;
+    background: #0C0B1A;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-button {
-    /*font-family: var(--font-poppins);*/
+.logo {
+    width: 200px;
+    height: 120px;
 }
 
-.fade {
-    height: 100%;
+.progressBar {
+    width: 164px;
+    height: 4px;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+}
+
+.progress {
+    background-color: #FFFFFF;
+    height: 4px;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
