@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "prod": "env-cmd -f .env webpack --config config/webpack.prod.js",
+    "build": "env-cmd -f .env webpack --config config/webpack.prod.js",
     "start": "env-cmd -f .env.develop --silent webpack serve --config config/webpack.dev.js"
   },
   "dependencies": {
