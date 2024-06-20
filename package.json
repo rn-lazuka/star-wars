@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "build": "env-cmd -f .env webpack --config config/webpack.prod.js",
-    "start": "env-cmd -f .env.develop --silent webpack serve --config config/webpack.dev.js"
+    "start": "env-cmd -f .env.develop --silent webpack serve --config config/webpack.dev.js",
+    "prod": "serve -s build"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
