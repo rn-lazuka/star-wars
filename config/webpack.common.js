@@ -45,13 +45,13 @@ module.exports = {
       {
         test: /\.(jpg|png)$/,
         loader: 'file-loader',
-        include: SRC_PATH,
+        include: [SRC_PATH],
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         issuer: { and: [/\.(js|ts|md)x?$/] },
         type: 'asset/resource',
-        include: SRC_PATH,
+        include: [SRC_PATH],
       },
       {
         test: /\.css$/,
@@ -77,24 +77,4 @@ module.exports = {
     },
   },
   plugins,
-  // externals: {
-  //   Config: getConfig(process.env),
-  // },
 };
-
-// function getConfig(env) {
-//   const config = {};
-//   // providing a list of env variables otherwise we would push all the node envs here
-//   const customPropsNames = [
-//     'API_URL',
-//     'LICENSE_NUMBER',
-//     'CONTACT_SUPPORT_LINK_HOST',
-//     'DEVELOPMENT_API_TARGET',
-//   ];
-//   for (const key of customPropsNames) {
-//     if (env.hasOwnProperty(key)) {
-//       config[key] = env[key].trim();
-//     }
-//   }
-//   return JSON.stringify(config);
-// }
