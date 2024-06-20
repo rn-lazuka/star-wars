@@ -1,5 +1,6 @@
 const { merge } = require('webpack-merge');
 const commonConfig = require('./webpack.common');
+const path = require('path');
 
 const prodConfig = {
   mode: 'production',
@@ -7,6 +8,7 @@ const prodConfig = {
     filename: '[name].[contenthash].js',
     publicPath: '/',
     clean: true,
+    path: path.resolve(__dirname, '../build')
   },
   optimization: {
     minimize: true,
