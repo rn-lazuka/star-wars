@@ -14,8 +14,8 @@ const processEnvPlugin = new webpack.DefinePlugin({
 const plugins = [
   new HtmlWebpackPlugin({
     template: './public/index.html',
-    // favicon: './public/favicon.ico',
-    // manifest: './public/manifest.json',
+    favicon: './public/favicon.ico',
+    manifest: './public/manifest.json',
   }),
   processEnvPlugin,
   new ExternalTemplateRemotesPlugin(),
@@ -26,14 +26,24 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
+        test: /\.(ts|js)x?$/i,
         exclude: /node_modules/,
-      },
-      {
-        test: /\.(ts|js)x?$/,
-        loader: 'ts-loader',
         include: [SRC_PATH],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+              [
+                '@babel/preset-react',
+                {
+                  runtime: 'automatic',
+                },
+              ],
+              '@babel/preset-typescript',
+            ],
+          },
+        },
       },
       {
         test: /\.(woff|woff2|eot|ttf|svg)$/,

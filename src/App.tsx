@@ -1,9 +1,9 @@
 import { Unity, useUnityContext } from 'react-unity-webgl';
 import { useCallback, useEffect, useState } from 'react';
-import hexacoreLogo from './assets/images/hexacore.png';
 import { AxiosResponse } from 'axios';
 import { API } from './utils';
 import { AuthResponse } from './types';
+import spacer from './assets/images/spacer.png';
 
 function App() {
   const [devicePixelRatio, setDevicePixelRatio] = useState<number>(
@@ -39,13 +39,11 @@ function App() {
         };
         const urlParams = new URLSearchParams(window.location.search);
         const startAppParam = urlParams.get('tgWebAppStartParam');
-        debugger;
         const { data }: AxiosResponse<AuthResponse> = await API.post('/auth', {
-          userId: userInfo.id,
-          username: userInfo.username,
-          referral: startAppParam,
+          playerId: userInfo.id,
+          userName: userInfo.username,
+          referralId: startAppParam,
         });
-        console.log(data);
       }
     }
   };
@@ -89,14 +87,14 @@ function App() {
   );
 
   return (
-    <>
+    <div className="loaderContainer">
       {!isLoaded && (
-        <div className="loaderContainer">
-          <img src={hexacoreLogo} alt="logo" className="logo" />
+        <div className="logoContainer">
+          <img src={spacer} alt="spacer" className="logo" />
           <div className="progressBar">
             <div
               className="progress"
-              style={{ width: Math.round(loadingProgression * 100) }}
+              style={{ width: `${Math.round(loadingProgression * 100)}%` }}
             />
           </div>
         </div>
@@ -106,12 +104,34 @@ function App() {
         devicePixelRatio={devicePixelRatio}
         style={{
           width: '100%',
-          height: '100dvh',
-          visibility: isLoaded ? 'visible' : 'hidden',
+          height: '100%',
+          display: isLoaded ? 'inline' : 'none',
         }}
       />
-    </>
+    </div>
   );
 }
 
 export default App;
+// <div className="loaderContainer">
+//   {isLoaded && (
+//     <div className="logoContainer">
+//       <img src={spacer} alt="spacer" className="logo" />
+//       <div className="progressBar">
+//         <div
+//           className="progress"
+//           style={{ width: Math.round(loadingProgression * 100) }}
+//         />
+//       </div>
+//     </div>
+//   )}
+//   <Unity
+//     unityProvider={unityProvider}
+//     devicePixelRatio={devicePixelRatio}
+//     style={{
+//       width: '100%',
+//       height: '100dvh',
+//       visibility: !isLoaded ? 'visible' : 'hidden',
+//     }}
+//   />
+// </div>
