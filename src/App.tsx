@@ -113,25 +113,3 @@ function App() {
 }
 
 export default App;
-// <div className="loaderContainer">
-//   {isLoaded && (
-//     <div className="logoContainer">
-//       <img src={spacer} alt="spacer" className="logo" />
-//       <div className="progressBar">
-//         <div
-//           className="progress"
-//           style={{ width: Math.round(loadingProgression * 100) }}
-//         />
-//       </div>
-//     </div>
-//   )}
-//   <Unity
-//     unityProvider={unityProvider}
-//     devicePixelRatio={devicePixelRatio}
-//     style={{
-//       width: '100%',
-//       height: '100dvh',
-//       visibility: !isLoaded ? 'visible' : 'hidden',
-//     }}
-//   />
-// </div>
