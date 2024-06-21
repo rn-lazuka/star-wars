@@ -1,3 +1,12 @@
+body {
+    margin: 0;
+    font-family: var(--font-poppins);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+    height: 100dvh;
+}
+
 #root {
     --font-poppins: 'Poppins', sans-serif;
     --font-prompt: 'Prompt', sans-serif;
@@ -5,7 +14,7 @@
     --font-red-hat-text: 'Red Hat Text', sans-serif;
     --font-monospace: 'Fira Code', 'Fira Mono', monospace; /* Example monospace fonts */
     box-sizing: border-box;
-    height: 100dvh;
+    height: 100%;
 }
 
 a {
@@ -20,42 +29,45 @@ a {
     margin: 0;
 }
 
-body {
-    margin: 0;
-    font-family: var(--font-poppins);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    box-sizing: border-box;
-    height: 100%;
-}
-
 .loaderContainer {
     display: flex;
-    height: 100dvh;
-    background: #0C0B1A;
+    height: 100%;
+    background: linear-gradient(192.93deg, #7DFBFF -17.88%, #7DB9FF 31.63%, #7151FF 69.44%, #402E90 107.17%);
     width: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
+.logoContainer {
+    display: flex;
+    width: 100%;
+    height: 424px;
+    justify-content: center;
+    position: relative;
+}
+
 .logo {
-    width: 200px;
-    height: 120px;
+    width: 320px;
+    z-index: 2;
 }
 
 .progressBar {
-    width: 164px;
-    height: 4px;
-    position: relative;
-    background-color: rgba(255, 255, 255, 0.1);
+    padding: 3px;
+    z-index: 1;
+    width: 96px;
+    height: 12px;
+    position: absolute;
     border-radius: 30px;
+    left: 140px;
+    bottom: 54px;
+    background-color: black;
+    display: flex;
+    align-items: center;
 }
 
 .progress {
-    background-color: #FFFFFF;
-    height: 4px;
-    position: absolute;
-    left: 0;
-    top: 0;
+    background: linear-gradient(90deg, #FFF065 20.99%, #FF1E00 100%);
+    height: 6px;
+    border-radius: 22px;
 }
