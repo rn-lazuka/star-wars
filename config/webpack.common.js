@@ -26,24 +26,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(ts|js)x?$/i,
+        test: /\.(ts|js)x?$/,
+        use: 'ts-loader',
         exclude: /node_modules/,
-        include: [SRC_PATH],
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              '@babel/preset-env',
-              [
-                '@babel/preset-react',
-                {
-                  runtime: 'automatic',
-                },
-              ],
-              '@babel/preset-typescript',
-            ],
-          },
-        },
       },
       {
         test: /\.(woff|woff2|eot|ttf|svg)$/,

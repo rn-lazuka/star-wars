@@ -1,29 +1,123 @@
 {
   "compilerOptions": {
+    "jsx": "react-jsx"
+    /* IMPORTANT! - this allows our JSX to be transpiled correctly */,
+    "target": "es6"
+    /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "esModuleInterop": true
+    /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
+    "allowSyntheticDefaultImports": true
+    /* Need for Webpack config file */,
+    "forceConsistentCasingInFileNames": true
+    /* Ensure that casing is correct in imports. */,
+    "strict": true
+    /* Enable all strict type-checking options. */,
+    "skipLibCheck": true
+    /* Skip type checking all .d.ts files. */,
     "outDir": "./build/",
     "module": "esnext",
-    "target": "es5",
     "allowJs": true,
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
     "sourceMap": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "declaration": false,
     "declarationMap": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
-    "jsx": "react-jsx",
     "baseUrl": "src/",
     "noImplicitAny": false
+  },
+  "paths": {
+    "@src*": [
+      "."
+    ],
+    "@src/*": [
+      "./*"
+    ],
+    "@components*": [
+      "components"
+    ],
+    "@components/*": [
+      "components/*"
+    ],
+    "@utils*": [
+      "utils"
+    ],
+    "@utils/*": [
+      "utils/*"
+    ],
+    "@store*": [
+      "store"
+    ],
+    "@store/*": [
+      "store/*"
+    ],
+    "@sagas*": [
+      "sagas"
+    ],
+    "@sagas/*": [
+      "sagas/*"
+    ],
+    "@pages*": [
+      "pages"
+    ],
+    "@pages/*": [
+      "pages/*"
+    ],
+    "@containers*": [
+      "containers"
+    ],
+    "@containers/*": [
+      "containers/*"
+    ],
+    "@hooks*": [
+      "hooks"
+    ],
+    "@hooks/*": [
+      "hooks/*"
+    ],
+    "@assets*": [
+      "assets"
+    ],
+    "@assets/*": [
+      "assets/*"
+    ],
+    "@guards*": [
+      "guards"
+    ],
+    "@guards/*": [
+      "guards/*"
+    ],
+    "@constants*": [
+      "constants"
+    ],
+    "@constants/*": [
+      "constants/*"
+    ],
+    "@types*": [
+      "types"
+    ],
+    "@types/*": [
+      "types/*"
+    ],
+    "@enums*": [
+      "enums"
+    ],
+    "@enums/*": [
+      "enums/*"
+    ],
+    "@modules*": [
+      "modules"
+    ],
+    "@modules/*": [
+      "modules/*"
+    ]
   },
   "include": [
     "src/**/*",

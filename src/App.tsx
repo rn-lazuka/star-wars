@@ -4,27 +4,36 @@ import { AxiosResponse } from 'axios';
 import { API } from './utils';
 import { AuthResponse } from './types';
 import spacer from './assets/images/spacer.png';
+import { channelLink, shareMessage } from './constants';
 
 function App() {
   const [devicePixelRatio, setDevicePixelRatio] = useState<number>(
     window.devicePixelRatio,
   );
-  const [userData, setUserData] = useState<null | {
+  const [authToken, setAuthToken] = useState<string | null>(null);
+  const [user, setUser] = useState<null | {
     firstName: string | undefined;
-    username: string;
+    username: string | undefined;
     id: number;
+    isPremium: boolean;
   }>(null);
 
-  const { unityProvider, loadingProgression, isLoaded, sendMessage } =
-    useUnityContext({
-      loaderUrl: `${process.env.REACT_APP_GAME_STORAGE_URL}/Build.loader.js`,
-      dataUrl: `${process.env.REACT_APP_GAME_STORAGE_URL}/Build.data.unityweb`,
-      frameworkUrl: `${process.env.REACT_APP_GAME_STORAGE_URL}/Build.framework.js.unityweb`,
-      codeUrl: `${process.env.REACT_APP_GAME_STORAGE_URL}/Build.wasm.unityweb`,
-      companyName: 'Hexacore',
-      productName: 'Space Slime',
-      productVersion: '1.0',
-    });
+  const {
+    unityProvider,
+    loadingProgression,
+    isLoaded,
+    sendMessage,
+    addEventListener,
+    removeEventListener,
+  } = useUnityContext({
+    loaderUrl: `${process.env.REACT_APP_GAME_STORAGE_URL}/Build.loader.js?v=1`,
+    dataUrl: `${process.env.REACT_APP_GAME_STORAGE_URL}/Build.data.unityweb?v=1`,
+    frameworkUrl: `${process.env.REACT_APP_GAME_STORAGE_URL}/Build.framework.js.unityweb?v=1`,
+    codeUrl: `${process.env.REACT_APP_GAME_STORAGE_URL}/Build.wasm.unityweb?v=1`,
+    companyName: 'Hexacore',
+    productName: 'Space Slime',
+    productVersion: '1.0',
+  });
 
   const initUser = async () => {
     const telegramWebApp = window.Telegram && window.Telegram.WebApp;
@@ -34,40 +43,78 @@ function App() {
       if (userData) {
         const userInfo = {
           firstName: userData.first_name,
-          username: userData.username,
+          username: userData?.username,
           id: userData.id,
+          isPremium: !!userData?.is_premium,
         };
+        setUser(userInfo);
         const urlParams = new URLSearchParams(window.location.search);
         const startAppParam = urlParams.get('tgWebAppStartParam');
-        const { data }: AxiosResponse<AuthResponse> = await API.post('/auth', {
+        const {
+          data: { token },
+        }: AxiosResponse<AuthResponse> = await API.post('/auth', {
           playerId: userInfo.id,
           userName: userInfo.username,
           referralId: startAppParam,
+          premium: userInfo.isPremium,
         });
+        setAuthToken(token);
       }
     }
   };
 
   const sendUserId = useCallback(() => {
-    if (isLoaded && userData) {
+    if (isLoaded && user) {
       sendMessage(
         'HexacoreAppKit',
         'InitializeApp',
         JSON.stringify({
-          userId: userData.id,
+          userId: user.id,
+          token: authToken,
         }),
       );
     }
-  }, [isLoaded, userData]);
+  }, [isLoaded, user]);
+
+  const handleJoinChannel = () => {
+    window.Telegram.WebApp.openTelegramLink(channelLink);
+  };
+
+  const handleInviteFriend = () => {
+    if (user) {
+      const url = `https://t.me/${process.env.REACT_APP_BOT_USERNAME}/wallet?startapp=${user.id}`;
+      const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&parse_mode=Markdown&text=${encodeURIComponent(shareMessage)}`;
+      window.Telegram.WebApp.openTelegramLink(shareUrl);
+    }
+  };
+
+  const handleCopyRefLink = () => {
+    const referralLink = `https://t.me/${process.env.REACT_APP_BOT_USERNAME}/game?startapp=${
+      user ? user.id : 'defaultUser'
+    }`;
+
+    navigator.clipboard.writeText(referralLink);
+    window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+    alert('Copied! ' + '\n\nShare with the friend!');
+  };
 
   useEffect(() => {
-    if (isLoaded && userData) {
+    if (isLoaded && user) {
       sendUserId();
     }
-  }, [userData, isLoaded]);
+  }, [user, isLoaded]);
 
   useEffect(() => {
     initUser();
+    addEventListener('JoinChannel', handleJoinChannel);
+    addEventListener('InviteFren', handleInviteFriend);
+    addEventListener('CopyRefLink', handleCopyRefLink);
+
+    return () => {
+      removeEventListener('JoinChannel', handleJoinChannel);
+      removeEventListener('InviteFren', handleInviteFriend);
+      removeEventListener('CopyRefLink', handleCopyRefLink);
+    };
   }, []);
 
   useEffect(
