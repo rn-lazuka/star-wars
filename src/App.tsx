@@ -70,6 +70,7 @@ function App() {
         'InitializeApp',
         JSON.stringify({
           userId: user.id,
+          userName: user.username,
           token: authToken,
         }),
       );
@@ -115,7 +116,7 @@ function App() {
       removeEventListener('InviteFren', handleInviteFriend);
       removeEventListener('CopyRefLink', handleCopyRefLink);
     };
-  }, []);
+  }, [user]);
 
   useEffect(
     function () {
