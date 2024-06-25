@@ -106,7 +106,6 @@ function App() {
   }, [user, isLoaded]);
 
   useEffect(() => {
-    initUser();
     addEventListener('JoinChannel', handleJoinChannel);
     addEventListener('InviteFren', handleInviteFriend);
     addEventListener('CopyRefLink', handleCopyRefLink);
@@ -117,6 +116,10 @@ function App() {
       removeEventListener('CopyRefLink', handleCopyRefLink);
     };
   }, [user]);
+
+  useEffect(() => {
+    initUser();
+  }, []);
 
   useEffect(
     function () {
