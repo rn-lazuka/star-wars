@@ -31,7 +31,12 @@
     "isolatedModules": true,
     "noEmit": false,
     "baseUrl": "src/",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "types": [
+      "jest",
+      "node",
+      "@testing-library/jest-dom"
+    ]
   },
   "paths": {
     "@src*": [
@@ -121,6 +126,10 @@
   },
   "include": [
     "src/**/*",
-    ".eslintrc.js"
+    ".eslintrc.js",
+    "src/tests/**/*",
+    "jest.config.js",
+    "jest.polyfills.js",
+    "src/tests/jest.setup.js"
   ]
 }
